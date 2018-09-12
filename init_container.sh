@@ -14,7 +14,7 @@ echo "$ID_RSA_PUB" > /root/.ssh/id_rsa.pub
 chmod 600 /root/.ssh/id_rsa
 chmod 600 /root/.ssh/id_rsa.pub
 
-# Set the git repo, we should have an s8080 version for a default
+# Set the git repo
 GIT_REPO=${GIT_REPO:-https://github.com/azureappserviceoss/drupalcms-azure}
 echo "Git repo: $GIT_REPO";
 # Track the master branch by default.
@@ -27,6 +27,7 @@ echo "BRANCH: "$GIT_BRANCH
 echo "INFO: ++++++++++++++++++++++++++++++++++++++++++++++++++:"
 echo "INFO: Clone from "$GIT_REPO
 git clone $GIT_REPO /var/www/html
+cd /var/www/html
 if [ "$GIT_BRANCH" != "master" ];then
     echo "INFO: Checkout to "$GIT_BRANCH
     git fetch origin
