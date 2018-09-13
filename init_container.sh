@@ -34,6 +34,10 @@ if [ "$GIT_BRANCH" != "master" ];then
     git branch --track $GIT_BRANCH origin/$GIT_BRANCH && git checkout $GIT_BRANCH
 fi
 
+if [ "$COMPOSER_DEPLOY" == "true" ];then
+    /var/www/html/composer install
+fi
+
 # Symlink the files driectory to the azure blob storage location.
 ln -s /home/site/files /var/www/html/web/sites/default/files
 chmod -R 777 /var/www/html/web/sites/default/files
