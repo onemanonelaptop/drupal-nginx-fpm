@@ -35,10 +35,11 @@ if [ "$GIT_BRANCH" != "master" ];then
 fi
 
 if [ "$COMPOSER_DEPLOY" == "true" ];then
+    echo "INFO: Performing a composer install."
     /var/www/html/composer install
 fi
 
-# Symlink the files driectory to the azure blob storage location.
+# Symlink the files directory to the azure blob storage location.
 ln -s /home/site/files /var/www/html/web/sites/default/files
 chmod -R 777 /var/www/html/web/sites/default/files
 
@@ -55,14 +56,7 @@ ln -s /home/site/temp_files /var/www/html/temp_files
 chmod -R 777 /var/www/html/temp_files
 
 # Symlink the settings file.
-if [ "$AZURE_SERVER_TYPE" == "staging" ];then
-    ln -s /var/www/html/web/sites/default/staging.azure.settings.php /var/www/html/web/sites/default/settings.php
-fi
-if [ "$AZURE_SERVER_TYPE" == "live" ];then
-    ln -s /var/www/html/web/sites/default/live.azure.settings.php /var/www/html/web/sites/default/settings.php
-fi
-
-
+ln -s /var/www/html/web/sites/default/$AZURE_SERVER_TYPE.azure.settings.php /var/www/html/web/sites/default/settings.php
 
 echo "INFO: creating /run/php/php7.2-fpm.sock ..."
 test -e /run/php/php7.2-fpm.sock && rm -f /run/php/php7.2-fpm.sock

@@ -76,6 +76,7 @@ RUN set -ex \
         php7.2-dba \
         php7.2-mysql \
 		php7.2-xml \
+		php7.2-mbstring \
 	" \
     && apt-get update \
 	&& apt-get install -y -V --no-install-recommends $phps \
