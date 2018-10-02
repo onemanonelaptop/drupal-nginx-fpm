@@ -107,8 +107,7 @@ RUN set -ex \
 # ----------
 RUN set -ex \
 	&& php -r "readfile('https://getcomposer.org/installer');" > /tmp/composer-setup.php \
-    && php -r "if (hash('SHA384', file_get_contents('/tmp/composer-setup.php')) === getenv('COMPOSER_SETUP_SHA')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); echo PHP_EOL; exit(1); } echo PHP_EOL;" \
-   	&& mkdir -p /composer/bin \
+  	&& mkdir -p /composer/bin \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin/ --filename=composer --version=${COMPOSER_VERSION} \
     && rm /tmp/composer-setup.php
 
@@ -155,5 +154,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # =====
 COPY init_container.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/init_container.sh
-EXPOSE 2222 80 11211 3310
+EXPOSE 2222 443 11211 3310
 ENTRYPOINT ["init_container.sh"]

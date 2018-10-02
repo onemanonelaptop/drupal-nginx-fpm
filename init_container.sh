@@ -36,7 +36,8 @@ fi
 
 if [ "$COMPOSER_DEPLOY" == "true" ];then
     echo "INFO: Performing a composer install."
-    /var/www/html/composer install
+    cd /var/www/html
+    composer install
 fi
 
 # Symlink the files directory to the azure blob storage location.

@@ -17,3 +17,11 @@ ID_RSA_PUB = Your RSA Public Key
 
 WEBSITES_CONTAINER_START_TIME_LIMIT = 500
 WEBSITES_ENABLE_APP_SERVICE_STORAGE = true
+WEBSITES_PORT = 443
+
+Notes:
+In order for secure cookies to be set you will need to set the trusted proxies
+
+e.g.
+$settings['reverse_proxy'] = TRUE;
+$settings['reverse_proxy_addresses'] = ['122.28.0.1'];
