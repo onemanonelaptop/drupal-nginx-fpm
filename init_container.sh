@@ -56,6 +56,8 @@ chmod -R 777 /home/site/temp_files
 ln -s /home/site/temp_files /var/www/html/temp_files
 chmod -R 777 /var/www/html/temp_files
 
+# Remove any settings file added by the scaffolding plugin
+rm /var/www/html/web/sites/default/settings.php
 # Symlink the settings file.
 ln -s /var/www/html/web/sites/default/$AZURE_SERVER_TYPE.azure.settings.php /var/www/html/web/sites/default/settings.php
 
