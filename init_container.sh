@@ -41,6 +41,7 @@ if [ "$COMPOSER_DEPLOY" == "true" ];then
 fi
 
 # Symlink the files directory to the azure blob storage location.
+mkdir /home/site/files
 ln -s /home/site/files /var/www/html/web/sites/default/files
 chmod -R 777 /var/www/html/web/sites/default/files
 
