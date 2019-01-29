@@ -42,25 +42,25 @@ fi
 
 # Symlink the files directory to the azure blob storage location.
 mkdir /home/site/files
-ln -s /home/site/files /var/www/html/web/sites/default/files
-chmod -R 777 /var/www/html/web/sites/default/files
+ln -sfn /home/site/files /var/www/html/web/sites/default/files
+chmod 777 /var/www/html/web/sites/default/files
 
 
 mkdir /home/site/private_files
-chmod -R 777 /home/site/private_files
-ln -s /home/site/private_files /var/www/html/private_files
-chmod -R 777 /var/www/html/private_files
+chmod  777 /home/site/private_files
+ln -sfn /home/site/private_files /var/www/html/private_files
+chmod  777 /var/www/html/private_files
 cp /var/www/html/web/private.htaccess /home/site/private_files/.htaccess
 
 mkdir /home/site/temp_files
-chmod -R 777 /home/site/temp_files
-ln -s /home/site/temp_files /var/www/html/temp_files
-chmod -R 777 /var/www/html/temp_files
+chmod  777 /home/site/temp_files
+ln -sfn /home/site/temp_files /var/www/html/temp_files
+chmod  777 /var/www/html/temp_files
 
 # Remove any settings file added by the scaffolding plugin
 rm /var/www/html/web/sites/default/settings.php
 # Symlink the settings file.
-ln -s /var/www/html/web/sites/default/$AZURE_SERVER_TYPE.azure.settings.php /var/www/html/web/sites/default/settings.php
+ln -sfn /var/www/html/web/sites/default/$AZURE_SERVER_TYPE.azure.settings.php /var/www/html/web/sites/default/settings.php
 
 echo "INFO: creating /run/php/php7.2-fpm.sock ..."
 test -e /run/php/php7.2-fpm.sock && rm -f /run/php/php7.2-fpm.sock
