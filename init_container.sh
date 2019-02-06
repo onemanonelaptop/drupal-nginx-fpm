@@ -28,11 +28,10 @@ echo "INFO: ++++++++++++++++++++++++++++++++++++++++++++++++++:"
 echo "INFO: Clone from "$GIT_REPO
 git clone $GIT_REPO /var/www/html
 cd /var/www/html
-if [ "$GIT_BRANCH" != "master" ];then
-    echo "INFO: Checkout to "$GIT_BRANCH
-    git fetch origin
-    git branch --track $GIT_BRANCH origin/$GIT_BRANCH && git checkout $GIT_BRANCH
-fi
+
+echo "INFO: Checkout to "$GIT_BRANCH
+git fetch origin
+git branch --track $GIT_BRANCH origin/$GIT_BRANCH && git checkout $GIT_BRANCH
 
 if [ "$COMPOSER_DEPLOY" == "true" ];then
     echo "INFO: Performing a composer install."
