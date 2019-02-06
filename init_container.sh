@@ -40,27 +40,60 @@ if [ "$COMPOSER_DEPLOY" == "true" ];then
     composer install
 fi
 
-# Symlink the files directory to the azure blob storage location.
-mkdir /home/site/files
-ln -sfn /home/site/files /var/www/html/web/sites/default/files
-chmod 777 /var/www/html/web/sites/default/files
+# Create the files directory if it does not exist.
+if test ! -e /home/site/files; then
+    echo "Creating files directory..."
+    mkdir /home/site/files
+    echo "Changing files directory permissions..."
+    chmod  777 /home/site/files
+fi
+# Create the files symlink if it does not exist.
+if ! [ -L /var/www/html/files ] ; then
+  echo "Symlinking file directory..."
+  ln -s /home/site/files /var/www/html/files
+fi
+
+# Create the private_files directory if it does not exist.
+if test ! -e /home/site/private_files; then
+    echo "Creating private_files directory..."
+    mkdir /home/site/private_files
+    echo "Changing private_files directory permissions..."
+    chmod  777 /home/site/private_files
+fi
+# Create the private_files symlink if it does not exist.
+if ! [ -L /var/www/html/private_files ] ; then
+  echo "Symlinking private_files directory..."
+  ln -s /home/site/private_files /var/www/html/private_files
+fi
+
+# Copy htaccess to private files directory.
+if test ! -e /home/site/private_files/.htaccess; then
+  echo "Copying htaccess to private files directory"
+  cp /var/www/html/web/private.htaccess /home/site/private_files/.htaccess
+fi
 
 
-mkdir /home/site/private_files
-chmod  777 /home/site/private_files
-ln -sfn /home/site/private_files /var/www/html/private_files
-chmod  777 /var/www/html/private_files
-cp /var/www/html/web/private.htaccess /home/site/private_files/.htaccess
-
-mkdir /home/site/temp_files
-chmod  777 /home/site/temp_files
-ln -sfn /home/site/temp_files /var/www/html/temp_files
-chmod  777 /var/www/html/temp_files
+# Create the temp_files directory if it does not exist.
+if test ! -e /home/site/temp_files; then
+    echo "Creating temp_files directory..."
+    mkdir /home/site/temp_files
+    echo "Changing temp_files directory permissions..."
+    chmod  777 /home/site/temp_files
+fi
+# Create the temp_files symlink if it does not exist.
+if ! [ -L /var/www/html/temp_files ] ; then
+  echo "Symlinking temp_files directory..."
+  ln -s /home/site/temp_files /var/www/html/temp_files
+fi
 
 # Remove any settings file added by the scaffolding plugin
-rm /var/www/html/web/sites/default/settings.php
-# Symlink the settings file.
-ln -sfn /var/www/html/web/sites/default/$AZURE_SERVER_TYPE.azure.settings.php /var/www/html/web/sites/default/settings.php
+if test -e /var/www/html/web/sites/default/settings.php; then
+  echo "Removing settings.php..."
+  rm /var/www/html/web/sites/default/settings.php
+fi
+
+# Symlink the settings file
+ln -s /var/www/html/web/sites/default/$AZURE_SERVER_TYPE.azure.settings.php /var/www/html/web/sites/default/settings.php
 
 echo "INFO: creating /run/php/php7.2-fpm.sock ..."
 test -e /run/php/php7.2-fpm.sock && rm -f /run/php/php7.2-fpm.sock
