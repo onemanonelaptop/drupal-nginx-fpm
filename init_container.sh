@@ -49,7 +49,7 @@ fi
 # Create the files symlink if it does not exist.
 if ! [ -L /var/www/html/files ] ; then
   echo "Symlinking file directory..."
-  ln -s /home/site/files /var/www/html/files
+  ln -s /home/site/files /var/www/html/web/sites/default/files
 fi
 
 # Create the private_files directory if it does not exist.
