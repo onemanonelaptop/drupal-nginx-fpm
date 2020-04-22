@@ -68,16 +68,16 @@ RUN set -ex \
 # ----------
 RUN set -ex \
     && phps=" \
-        php7.2-common \
-        php7.2-fpm \
+        php7.3-common \
+        php7.3-fpm \
         php-pear \
-        php7.2-apcu \
-        php7.2-gd \
-        php7.2-dba \
-        php7.2-mysql \
-		php7.2-xml \
-		php7.2-mbstring \
-		php7.2-curl \
+        php7.3-apcu \
+        php7.3-gd \
+        php7.3-dba \
+        php7.3-mysql \
+		php7.3-xml \
+		php7.3-mbstring \
+		php7.3-curl \
 	" \
     && apt-get update \
 	&& apt-get install -y -V --no-install-recommends $phps \
@@ -142,9 +142,9 @@ RUN set -ex \
 # ssh
 COPY sshd_config /etc/ssh/
 # php
-COPY php.ini /etc/php/7.2/cli/php.ini
-COPY php.ini /etc/php/7.2/fpm/conf.d/drupal-php.ini
-COPY www.conf /etc/php/7.2/fpm/pool.d/www.conf
+COPY php.ini /etc/php/7.3/cli/php.ini
+COPY php.ini /etc/php/7.3/fpm/conf.d/drupal-php.ini
+COPY www.conf /etc/php/7.3/fpm/pool.d/www.conf
 # nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
