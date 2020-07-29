@@ -61,23 +61,23 @@ RUN set -ex \
     && apt-get update \
     && apt-get -y install ca-certificates apt-transport-https \
     && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
-    && echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
+    && echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list
 
 # ----------
 # PHP
 # ----------
 RUN set -ex \
     && phps=" \
-        php7.3-common \
-        php7.3-fpm \
+        php7.4-common \
+        php7.4-fpm \
         php-pear \
-        php7.3-apcu \
-        php7.3-gd \
-        php7.3-dba \
-        php7.3-mysql \
-		php7.3-xml \
-		php7.3-mbstring \
-		php7.3-curl \
+        php7.4-apcu \
+        php7.4-gd \
+        php7.4-dba \
+        php7.4-mysql \
+		php7.4-xml \
+		php7.4-mbstring \
+		php7.4-curl \
 	" \
     && apt-get update \
 	&& apt-get install -y -V --no-install-recommends $phps \
@@ -101,7 +101,7 @@ RUN set -ex \
 # ~. tools
 # --------
 RUN set -ex \
-  && apt-get install -y git vim curl wget bash zip unzip cron imagemagick clamav clamav-daemon
+  && apt-get install -y git vim curl wget bash zip unzip cron clamav clamav-daemon
 
 # ----------
 # COMPOSER
@@ -142,9 +142,9 @@ RUN set -ex \
 # ssh
 COPY sshd_config /etc/ssh/
 # php
-COPY php.ini /etc/php/7.3/cli/php.ini
-COPY php.ini /etc/php/7.3/fpm/conf.d/drupal-php.ini
-COPY www.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY php.ini /etc/php/7.4/cli/php.ini
+COPY php.ini /etc/php/7.4/fpm/conf.d/drupal-php.ini
+COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 # nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 

@@ -25,3 +25,14 @@ In order for secure cookies to be set you will need to set the trusted proxies
 e.g.
 $settings['reverse_proxy'] = TRUE;
 $settings['reverse_proxy_addresses'] = ['122.28.0.1'];
+
+
+To test a docker build:
+docker build .
+
+To tag and deploy
+docker build -t s8080/drupal-nginx-fpm:6.0
+docker push s8080/drupal-nginx-fpm:6.0
+
+
+Ensure line endings are LF.
