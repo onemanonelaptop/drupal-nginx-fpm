@@ -61,23 +61,23 @@ RUN set -ex \
     && apt-get update \
     && apt-get -y install ca-certificates apt-transport-https \
     && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
-    && echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list
+    && echo "deb https://packages.sury.org/php/ bullseye main" | tee /etc/apt/sources.list.d/php.list
 
 # ----------
 # PHP
 # ----------
 RUN set -ex \
     && phps=" \
-        php7.4-common \
-        php7.4-fpm \
+        php8.1-common \
+        php8.1-fpm \
         php-pear \
-        php7.4-apcu \
-        php7.4-gd \
-        php7.4-dba \
-        php7.4-mysql \
-		php7.4-xml \
-		php7.4-mbstring \
-		php7.4-curl \
+        php8.1-apcu \
+        php8.1-gd \
+        php8.1-dba \
+        php8.1-mysql \
+		php8.1-xml \
+		php8.1-mbstring \
+		php8.1-curl \
 	" \
     && apt-get update \
 	&& apt-get install -y -V --no-install-recommends $phps \
@@ -88,7 +88,7 @@ RUN set -ex \
 # ----------
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y --no-install-recommends openssh-server \
+    && DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef  install -y  --no-install-recommends openssh-server \
     && echo "$SSH_PASSWD" | chpasswd
 
 # ----------
@@ -109,7 +109,7 @@ RUN set -ex \
 RUN set -ex \
 	&& php -r "readfile('https://getcomposer.org/installer');" > /tmp/composer-setup.php \
   	&& mkdir -p /composer/bin \
-    && php /tmp/composer-setup.php --install-dir=/usr/local/bin/ --filename=composer --version=${COMPOSER_VERSION} \
+    && php /tmp/composer-setup.php --install-dir=/usr/local/bin/ --filename=composer  \
     && rm /tmp/composer-setup.php
 
 # ----------
@@ -142,9 +142,9 @@ RUN set -ex \
 # ssh
 COPY sshd_config /etc/ssh/
 # php
-COPY php.ini /etc/php/7.4/cli/php.ini
-COPY php.ini /etc/php/7.4/fpm/conf.d/drupal-php.ini
-COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY php.ini /etc/php/8.1/cli/php.ini
+COPY php.ini /etc/php/8.1/fpm/conf.d/drupal-php.ini
+COPY www.conf /etc/php/8.1/fpm/pool.d/www.conf
 # nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 

@@ -94,20 +94,20 @@ fi
 # Symlink the settings file
 ln -s /var/www/html/web/sites/default/$AZURE_SERVER_TYPE.azure.settings.php /var/www/html/web/sites/default/settings.php
 
-echo "INFO: creating /run/php/php7.4-fpm.sock ..."
-test -e /run/php/php7.4-fpm.sock && rm -f /run/php/php7.2-fpm.sock
+echo "INFO: creating /run/php/php8.1-fpm.sock ..."
+test -e /run/php/php8.1-fpm.sock && rm -f /run/php/php8.1-fpm.sock
 mkdir -p /run/php
-touch /run/php/php7.4-fpm.sock
-chown www-data:www-data /run/php/php7.4-fpm.sock
-chmod 777 /run/php/php7.4-fpm.sock
+touch /run/php/php8.1-fpm.sock
+chown www-data:www-data /run/php/php8.1-fpm.sock
+chmod 777 /run/php/php8.1-fpm.sock
 
 
 echo "Starting SSH ...."
 service ssh start
 
 echo "Starting php-fpm ..."
-service php7.4-fpm start
-chmod 777 /run/php/php7.4-fpm.sock
+service php8.1-fpm start
+chmod 777 /run/php/php8.1-fpm.sock
 
 echo "starting memcached"
 service memcached start
