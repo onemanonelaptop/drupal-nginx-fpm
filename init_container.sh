@@ -39,6 +39,12 @@ if [ "$COMPOSER_DEPLOY" == "true" ];then
     composer install
 fi
 
+if [ "$CONFIG_MANAGED" == "true" ];then
+    echo "INFO: Updating config"
+    cd /var/www/html
+    sh scripts/update.sh
+fi
+
 # Create the files directory if it does not exist.
 if test ! -e /home/site/files; then
     echo "Creating files directory..."
