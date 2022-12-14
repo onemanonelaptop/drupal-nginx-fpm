@@ -6,7 +6,7 @@ MAINTAINER OneManOneLaptop <rob@onemanonelaptop.com>
 # ssh
 ENV SSH_PASSWD "root:Docker!"
 #nginx
-ENV NGINX_VERSION 1.14.0
+ENV NGINX_VERSION stable
 ENV NGINX_LOG_DIR "/home/LogFiles/nginx"
 #php
 ENV PHP_HOME "/usr/local/etc/php"
@@ -102,6 +102,13 @@ RUN set -ex \
 # --------
 RUN set -ex \
   && apt-get install -y git vim curl wget bash zip unzip cron clamav clamav-daemon
+
+
+# --------
+# ~. Patching
+# --------
+RUN set -ex \
+  && apt-get install -y zlib1g libexpat1 libxslt1.1 libtirpc3 libfreetype6 gzip libssl1.1 openssl libldap-2.4-2 dpkg liblzma5 libc-bin libc6 libgssapi-krb5-2 libkrb5-3 libk5crypto3 libkrb5support0 libxml2
 
 # ----------
 # COMPOSER

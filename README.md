@@ -43,3 +43,5 @@ docker push SOMETHING.azurecr.io/drupal-nginx-fpm:VERSION
 
 
 Ensure line endings are LF.
+
+
