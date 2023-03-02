@@ -83,6 +83,9 @@ RUN set -ex \
 	&& apt-get install -y -V --no-install-recommends $phps \
 	&& rm -r /var/lib/apt/lists/*
 
+
+RUN update-alternatives --set php /usr/bin/php8.1
+
 # ----------
 # SSH
 # ----------
@@ -135,6 +138,11 @@ RUN set -ex; \
 RUN apt-get update \
     && sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d \
     && apt-get -y install memcached php-memcached netcat
+
+
+RUN apt-get update \
+  &&  apt-get install imagemagick -y \
+  &&  sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/g' /etc/ImageMagick-6/policy.xml
 
 # ----------
 # Mariadb server required for drush.
